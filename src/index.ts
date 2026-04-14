@@ -17,9 +17,10 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Backend Kalendar Utrka is running' });
 });
 
+
 // Races routes
-app.use('/api/utrke', racesRouter);
-app.use('/api/korisnici', usersRouter);
+app.use('/api/races', racesRouter);
+app.use('/api/users', usersRouter);
 
 import { connectDB } from './db';
 
