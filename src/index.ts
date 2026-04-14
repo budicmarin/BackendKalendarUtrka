@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { racesRouter } from './routes/races';
+import { usersRouter } from './routes/users';
 
 dotenv.config();
 
@@ -18,7 +19,12 @@ app.get('/api/health', (req, res) => {
 
 // Races routes
 app.use('/api/utrke', racesRouter);
+app.use('/api/korisnici', usersRouter);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+import { connectDB } from './db';
+
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
 });
