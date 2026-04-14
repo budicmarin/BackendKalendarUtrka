@@ -99,14 +99,14 @@ export function verifyToken(req: Request, res: Response, next: NextFunction): Re
         }
 
         const [type, token] = authorization;
-        if (type !== 'Bearer') {
+        if (type !== 'Bearer' || !token) {
             return res.status(401).json({ message: 'Neispravan tip tokena' });
         }
 
         req.user = jwt.verify(
             token,
             process.env.JWT_SECRET ?? 'default_secret'
-        ) as JwtPayload;
+        ) as unknown as JwtPayload;
 
         return next();
     } catch (e) {
