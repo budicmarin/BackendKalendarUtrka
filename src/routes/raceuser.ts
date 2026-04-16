@@ -27,6 +27,49 @@ raceuserRouter.get('/', async (req, res) => {
     }
 });
 
+raceuserRouter.get('/:id', async (req, res) => {
+    try {
+        const db = getDB();
+        const id = req.params.id;
+        if (!ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Neispravan format ID-ja' });
+        }
+        const raceuser = await db.collection('raceuser').findOne({ _id: new ObjectId(id) });
+        res.json(raceuser);
+    } catch (error) {
+        console.error("Greška kod dohvata:", error);
+        res.status(500).json({ message: 'Greška na serveru' });
+    }
+});
+raceuserRouter.get('/user/:id', async (req, res) => {
+    try {
+        const db = getDB();
+        const id = req.params.id;
+        if (!ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Neispravan format ID-ja' });
+        }
+        const raceuser = await db.collection('raceuser').find({ user_id: id }).toArray();
+        res.json(raceuser);
+    } catch (error) {
+        console.error("Greška kod dohvata:", error);
+        res.status(500).json({ message: 'Greška na serveru' });
+    }
+});
+raceuserRouter.get('/race/:id', async (req, res) => {
+    try {
+        const db = getDB();
+        const id = req.params.id;
+        if (!ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Neispravan format ID-ja' });
+        }
+        const raceuser = await db.collection('raceuser').find({ race_id: id }).toArray();
+        res.json(raceuser);
+    } catch (error) {
+        console.error("Greška kod dohvata:", error);
+        res.status(500).json({ message: 'Greška na serveru' });
+    }
+});
+
 raceuserRouter.delete('/:id', async (req, res) => {
     try {
         const db = getDB();
