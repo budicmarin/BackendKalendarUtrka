@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { racesRouter } from './routes/races';
 import { usersRouter } from './routes/users';
+import { raceuserRouter } from './routes/raceuser';
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.get('/api/health', (req, res) => {
 // Races routes
 app.use('/api/races', racesRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/raceuser', raceuserRouter);
 
 import { connectDB } from './db';
 

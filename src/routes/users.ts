@@ -1,8 +1,19 @@
 import { Router } from 'express';
+import { getDB } from '../db';
 import { registerUser, loginUser, changePassword, verifyToken } from './auth';
 
 export const usersRouter = Router();
 
+usersRouter.get('/', async (req, res) => {
+    try {
+        const db = getDB();
+        const users = await db.collection('users').find().toArray();
+        res.json(users);
+    } catch (error) {
+        console.error("Greška kod dohvata:", error);
+        res.status(500).json({ message: 'Greška na serveru' });
+    }
+});
 // Registracija korisnika
 usersRouter.post('/register', async (req, res) => {
     try {
