@@ -71,7 +71,7 @@ export async function loginUser(email: string, password: string) {
         { algorithm: 'HS256', expiresIn: '7d' }
     );
 
-    return { token, email: korisnik.email };
+    return { id: korisnik._id.toString(), token, email: korisnik.email };
 }
 
 // Promjena lozinke
