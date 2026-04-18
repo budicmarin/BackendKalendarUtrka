@@ -44,7 +44,7 @@ async function loginUser(email, password) {
         throw new Error('Neispravni podaci za prijavu');
     }
     const token = jsonwebtoken_1.default.sign({ id: korisnik._id.toString() }, process.env.JWT_SECRET ?? 'default_secret', { algorithm: 'HS256', expiresIn: '7d' });
-    return { token, email: korisnik.email };
+    return { id: korisnik._id.toString(), token, email: korisnik.email };
 }
 // Promjena lozinke
 async function changePassword(email, novaLozinka) {

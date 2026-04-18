@@ -32,6 +32,7 @@ export declare function registerUser(userData: UserData): Promise<{
     created_at: Date;
 }>;
 export declare function loginUser(email: string, password: string): Promise<{
+    id: string;
     token: string;
     email: any;
 }>;

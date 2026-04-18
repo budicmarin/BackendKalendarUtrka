@@ -2,8 +2,20 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.usersRouter = void 0;
 const express_1 = require("express");
+const db_1 = require("../db");
 const auth_1 = require("./auth");
 exports.usersRouter = (0, express_1.Router)();
+exports.usersRouter.get('/', async (req, res) => {
+    try {
+        const db = (0, db_1.getDB)();
+        const users = await db.collection('users').find().toArray();
+        res.json(users);
+    }
+    catch (error) {
+        console.error("Greška kod dohvata:", error);
+        res.status(500).json({ message: 'Greška na serveru' });
+    }
+});
 // Registracija korisnika
 exports.usersRouter.post('/register', async (req, res) => {
     try {

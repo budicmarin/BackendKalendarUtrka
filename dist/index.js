@@ -8,6 +8,7 @@ const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const races_1 = require("./routes/races");
 const users_1 = require("./routes/users");
+const raceuser_1 = require("./routes/raceuser");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3000;
@@ -18,8 +19,9 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', message: 'Backend Kalendar Utrka is running' });
 });
 // Races routes
-app.use('/api/utrke', races_1.racesRouter);
-app.use('/api/korisnici', users_1.usersRouter);
+app.use('/api/races', races_1.racesRouter);
+app.use('/api/users', users_1.usersRouter);
+app.use('/api/raceuser', raceuser_1.raceuserRouter);
 const db_1 = require("./db");
 (0, db_1.connectDB)().then(() => {
     app.listen(PORT, () => {
